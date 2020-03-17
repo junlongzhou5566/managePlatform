@@ -31,7 +31,7 @@
         # python manage.py migrate
     
     6.启动项目
-        # python manage.py runserver 0.0.0.0 & 也可自行编写启动脚本启动
+        # python manage.py runserver 0.0.0.0:8000 & 也可自行编写启动脚本启动
         
     7.访问
         # curl localhost:8000
