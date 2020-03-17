@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+{#        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />#}
+        <link rel="stylesheet" href="static/css/font.css">
+        <link href="/static/css/bootstrap.css" rel="stylesheet">
+        <link rel="stylesheet" href="static/css/xadmin.css">
+        <link href="static/css/bootstrap.min.css" rel="stylesheet">
+        <link href="static/css/nifty.min.css" rel="stylesheet">
+        <meta name="renderer" content="webkit">
+        <script src="static/js/jquery-2.1.1.min.js"></script>
+        <script type="text/javascript" src="static/lib/layui/layui.js" charset="utf-8"></script>
+        <script type="text/javascript" src="static/js/xadmin.js"></script>
+        <script type="text/javascript" src="static/js/cookie.js"></script>
+        <script src="static/js/jquery-2.1.1.min.js"></script>
+	    <script src="static/js/bootstrap.min.js"></script>
+    </head>
+    <style type="text/css">
+        {#a:hover{color:dodgerblue;}#}
+        a:hover {text-decoration:underline;}
+        .active{
+            background-color: darkgrey;
+        }
+    </style>
+    <body style="background-color: white">
+
+    <div class="x-body">
+        <fieldset>
+            <legend class="panel-title">实例列表</legend>
+
+            <div class="layui-row" style="margin-top: 10px">
+
+
+                <button class="btn btn-primary" onclick="" style="float: right;margin-left: 3px;"><a href="/ecs.html" style="color: white">创建实例</a></button>
+{#                <button class="layui-btn" onclick="" style="float: right;margin-left: 8px;background-color: #f7f7f7;color: #0C0C0C;border: 1px solid #dddddd">标 签</button>#}
+                <div class="btn-group" style="float: right;margin-left: 3px;">
+                    <button class="btn btn-default dropdown-toggle dropdown-toggle-icon" data-toggle="dropdown" type="button">
+                        标 签 <i class="dropdown-caret fa fa-caret-down"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        {% for i in server_obj %}
+                            <li><a href="#">{{ i.instance_name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <button class="layui-btn" style="float: right; background-color: #f7f7f7;color: #0C0C0C;border: 1px solid #dddddd"><i class="layui-icon">&#xe615;</i></button>
+                <input type="text" name="username"  placeholder="输入实例属性项搜索" autocomplete="off" class="layui-input" style="width: 200px; float: right;">
+            </div>
+        </fieldset>
+
+        <div class="panel">
+                <div class="tab-content">
+                    <div class="tab-pane fade in active" id="tabs2-box-1">
+                        <table class="layui-table x-admin" style="border-style:none;">
+                            <thead>
+                              <tr>
+                                <th width="35">
+                                  <div class="layui-unselect header layui-form-checkbox" lay-skin="primary"><i class="layui-icon">&#xe605;</i></div>
+                                </th>
+                                <th width="180">实例ID/名称</th>
+                                <th width="220">服务名称</th>
+                                <th width="140">IP</th>
+                                <th >主机名</th>
+                                <th width="110">状态</th>
+                                <th width="140">配置</th>
+                                <th width="100">操作</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for s in server_obj %}
+                              <tr>
+                                <td>
+                                  <div class="layui-unselect layui-form-checkbox" lay-skin="primary" data-id='2'><i class="layui-icon">&#xe605;</i></div>
+                                </td>
+                                <td>{{ s.instance_id }}</td>
+                                <td>{{ s.instance_name }}</td>
+                                <td>{{ s.instance_ip }}</td>
+                                <td>{{ s.hostname }}</td>
+                                {%  if s.available == 1 %}
+                                    <td style="color: #090"><i class="iconfont">&#xe719;</i> 运行中</td>
+                                {% else %}
+                                    <td style="color: #FF9900"><i class="iconfont">&#xe71a;</i> {{ s.available }}</td>
+                                {% endif %}
+
+                                <td>{{ s.cpu }} vCPU {{ s.memory }} GiB</td>
+                                <td >
+                                  <a href="#" style="color: #1E9FFF">
+                                    详细信息
+                                  </a>
+                                </td>
+                              </tr>
+                             {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <hr>
+            </div>
+        </div>
+    </div>
+    <script>
+        /*搜索服务按钮--开始*/
+        function searchService(ths) {
+            var service = $(ths).find('cite').text();
+            $.ajax({
+                url: "/host_info",
+                type: 'POST',
+                data: {'service':service},
+                traditional:true,
+                dataType:'JSON',
+                success: function(data){
+                    location.reload();
+                }})
+        }
+        /*搜索服务按钮--结束*/
+
+        $(function(){
+            $(".ip-white-btn").bind("click", function (e) {
+                var btnObj = $(this);
+                var val = btnObj.parent().find("input").val();
+                var rule= btnObj.attr("name");
+                var opa = btnObj.text();
+                $.ajax({
+                    url: "/rule.html",
+                    type: 'POST',
+                    data: {"val":val, "rule":rule, "opa": opa, "score":""},
+                    traditional:true,
+                    dataType:'JSON',
+                    success: function(data){
+                        if (data){
+                            alert(' ')
+                        }
+                }});
+                e.preventDefault();
+            })
+        });
+
+        /*负载-下线*/
+      function member_stop(obj,id){
+          layer.confirm('确认执行'+$(obj).attr('title')+'操作吗？',function(index){
+              var ip = $(obj).attr('name');
+              var operation = $(obj).attr('title');
+              if($(obj).attr('title')=='已停止'){
+                $.ajax({
+                    url: "/ecs_up_down",
+                    type: 'POST',
+                    data: {},
+                    traditional:true,
+                    dataType:'JSON',
+                    success: function(data){
+                        {#location.reload();#}
+                        //发异步把用户状态进行更改
+                        $(obj).attr('title','停止');
+                        $(obj).find('i').html('&#xe62f;');
+
+                        $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('运行中');
+                        layer.msg(data,{time:1000});
+                    }});
+
+                //发异步把用户状态进行更改
+                {#$(obj).attr('title','上线');#}
+                {#$(obj).find('i').html('&#xe62f;');#}
+                {##}
+                {#$(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('下线');#}
+                {#layer.msg('下线成功!',{time:1000});#}
+                {#location.reload();#}
+
+              }else{
+                  $.ajax({
+                    url: "/ecs_up_down",
+                    type: 'POST',
+                    data: {'ip':ip, 'operation':operation},
+                    traditional:true,
+                    dataType:'JSON',
+                    success: function(data){
+                        {#location.reload();#}
+                        //发异步把用户状态进行更改
+                        $(obj).attr('title','启动');
+                        $(obj).find('i').html('&#xe601;');
+
+                        $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已停止');
+                        layer.msg(data,{time:1000});
+                    }});
+              }
+
+          });
+      }
+        /*负载-上线*/
+      function member_start(obj,id){
+          layer.confirm('确认执行上线操作吗？',function(index){
+
+              if($(obj).attr('title')=='已停止'){
+
+                //发异步把用户状态进行更改
+                $(obj).attr('title','已停止');
+                $(obj).find('i').html('&#xe62f;');
+
+                {#$(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('下线');#}
+                layer.msg('启动成功!',{time:1000});
+                location.reload();
+
+              }else{
+                $(obj).attr('title','运行中');
+                $(obj).find('i').html('&#xe601;');
+
+                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('运行中');
+                layer.msg('停止成功!',{time:1000});
+                location.reload();
+              }
+
+          });
+      }
+    </script>
+    </body>
+</html>

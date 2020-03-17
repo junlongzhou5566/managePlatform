@@ -1,0 +1,4 @@
+from aliyun.api.rest.ocs.OcsDescribeOcsInstancesRequest import OcsDescribeOcsInstancesRequest
+from aliyun.api.rest.ocs.OcsDescribeOcsMonitorRequest import OcsDescribeOcsMonitorRequest
+from aliyun.api.rest.ocs.OcsModifyOcsInstanceAttributeRequest import OcsModifyOcsInstanceAttributeRequest
+from aliyun.api.rest.ocs.OcsDescribeRegionsRequest import OcsDescribeRegionsRequest

@@ -1,0 +1,72 @@
+<!doctype html>
+<html  class="x-admin-sm">
+<head>
+	<meta charset="UTF-8">
+	<title>X-admin</title>
+    <link rel="stylesheet" href="static/css/font.css">
+	<link rel="stylesheet" href="static/css/xadmin.css">
+{#    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>#}
+    <script src="static/js/jquery-2.1.1.min.js"></script>
+{#    <script type="text/javascript"src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>#}
+    <script src="static/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="static/js/xadmin.js"></script>
+    <script type="text/javascript" src="static/js/cookie.js"></script>
+
+</head>
+<body>
+    <!-- 顶部开始 -->
+    <div class="container">
+        <div class="logo"><a href="index/index.html">X-admin v2.1</a></div>
+        <div class="left_open">
+            <i title="展开左侧栏" class="iconfont">&#xe699;</i>
+        </div>
+        <ul class="layui-nav right" lay-filter="">
+          <li class="layui-nav-item">
+            <a href="javascript:;">{{ username }}</a>
+            <dl class="layui-nav-child"> <!-- 二级菜单 -->
+              <dd><a onclick="x_admin_show('个人信息','http://www.baidu.com')">个人信息</a></dd>
+              <dd><a href="/logout">退出</a></dd>
+            </dl>
+          </li>
+        </ul>
+        
+    </div>
+    <!-- 顶部结束 -->
+    <!-- 中部开始 -->
+     <!-- 左侧菜单开始 -->
+    {% include "include/left-nav.html" %}
+    <!-- <div class="x-slide_left"></div> -->
+    <!-- 左侧菜单结束 -->
+    <!-- 右侧主体开始 -->
+    <div class="page-content">
+        <div class="layui-tab tab">
+          <ul class="layui-tab-title">
+            <li class="home"><i class="layui-icon">&#xe68e;</i>首页</li>
+          </ul>
+          <div class="layui-tab-content">
+            <div class="layui-tab-item layui-show">
+                <iframe src='welcome.html' frameborder="0" scrolling="yes" class="x-iframe"></iframe>
+            </div>
+          </div>
+        </div>
+    </div>
+    <!--<div class="page-content-bg"></div>-->
+    <!-- 右侧主体结束 -->
+    <!-- 中部结束 -->
+    <!-- 底部开始 -->
+{#    <div class="footer">#}
+{#        <div class="copyright">&nbsp;</div>#}
+{#    </div>#}
+    <!-- 底部结束 -->
+    <script>
+    // //百度统计可去掉
+    // var _hmt = _hmt || [];
+    // (function() {
+    //   var hm = document.createElement("script");
+    //   hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+    //   var s = document.getElementsByTagName("script")[0];
+    //   s.parentNode.insertBefore(hm, s);
+    // })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,34 @@
+Metadata-Version: 1.0
+Name: pyhessian2
+Version: 2.0.1
+Summary: an implementation for hessian2
+Home-page: https://github.com/WKPlus/pyhessian2.git
+Author: WKPlus
+Author-email: qifa.zhao@gmail.com
+License: MIT
+Description: 
+        pyhessian2 is implemented for serialize and deserialize data in hessian2 protocol.
+        
+        Usage
+        -----
+        
+            >>> # encoding
+            >>> from pyhessian2 import HessianObject, Encoder
+            >>> attrs = {
+                    "name": "xx",
+                    "age": 20,
+                }
+            >>> obj = HessianObject("com.xx.person", attrs)
+            >>> data = Encoder().encode(obj)
+            >>> print "%r" % data
+        
+        
+            >>> # decoding
+            >>> from pyhessian2 import Decoder
+            >>> data = ...  # a hessian bytes data
+            >>> obj = Decoder().decoder(data)  # get a Hessianobject instance
+            >>> print obj  # print json serialized data
+        
+        
+        
+Platform: UNKNOWN

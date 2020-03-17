@@ -1,0 +1,2 @@
+from aliyun.api.rest.odps.OdpsOpenOdpsServiceRequest import OdpsOpenOdpsServiceRequest
+from aliyun.api.rest.odps.OdpsDescribeOdpsServiceRequest import OdpsDescribeOdpsServiceRequest

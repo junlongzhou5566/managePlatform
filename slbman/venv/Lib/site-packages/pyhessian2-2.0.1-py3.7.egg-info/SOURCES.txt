@@ -1,0 +1,12 @@
+setup.cfg
+setup.py
+pyhessian2/__init__.py
+pyhessian2/decoder.py
+pyhessian2/encoder.py
+pyhessian2/proto.py
+pyhessian2.egg-info/PKG-INFO
+pyhessian2.egg-info/SOURCES.txt
+pyhessian2.egg-info/dependency_links.txt
+pyhessian2.egg-info/not-zip-safe
+pyhessian2.egg-info/pbr.json
+pyhessian2.egg-info/top_level.txt

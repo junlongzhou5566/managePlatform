@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+    <head>
+        <meta charset="UTF-8">
+        <title>欢迎页面-X-admin2.1</title>
+        <meta name="renderer" content="webkit">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+{#        <meta name="viewport" content="width=device-width,user-scalable=yes, minimum-scale=0.4, initial-scale=0.8,target-densitydpi=low-dpi" />#}
+        <link href="static/css/font.css" rel="stylesheet">
+        <link href="static/css/xadmin.css" rel="stylesheet">
+        <link href="static/css/bootstrap.min.css" rel="stylesheet">
+        <link href="static/css/nifty.min.css" rel="stylesheet">
+{#        <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>#}
+        <script src="static/js/jquery-2.1.1.min.js"></script>
+
+    </head>
+    <style type="text/css">
+        a:hover{color:dodgerblue;}
+        .active{
+            background-color: darkgrey;
+        }
+    </style>
+    <body style="background-color: white">
+    <div class="panel">
+        <div class="panel-heading">
+            <div class="panel-control">
+                <ul class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#tabs2-box-1" data-toggle="tab">刷新缓存</a>
+                    </li>
+                    <li>
+                        <a href="#tabs2-box-2" data-toggle="tab">操作记录</a>
+                    </li>
+                </ul>
+            </div>
+            <h3 class="panel-title">CDN刷新</h3>
+        </div>
+
+        <div class="panel-body">
+            <div class="tab-content">
+                <div class="tab-pane fade in active" id="tabs2-box-1" style="background-color: white;">
+                    <div style="width: 95%;margin: 0 auto">
+                        刷新类型&nbsp;&nbsp;
+                        <div class="layui-input-inline">
+                            <select id="fresh_type" name="contrller" style="height: 30px;width: 350px;">
+                              <option>url</option>
+                              <option>目录</option>
+                            </select>
+                        </div>
+                        <br>
+                        <br>
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>URL&nbsp; 每日最多刷新上限2000,目录上限1000,单次最多500条。刷新任务生效时间大约为5分钟。</span>
+                        <br>
+                        <span>
+                            <textarea id="fresh_content" class="form-control" type="text" rows="17" style="width: 600px;margin-left: 57px;border-radius: 3px;"></textarea>
+                        </span>
+                        <br>
+                        <span id="cdn_fresh_submit" class="layui-btn layui-btn-normal layui-btn-mini"  style="margin-left: 57px;">提 交</span>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="tabs2-box-2">
+                    <table class="layui-table x-admin">
+                            <thead>
+                              <tr>
+                                <th>操作内容</th>
+                                <th>操作类型</th>
+                                <th>操作时间</th>
+                                <th>状态</th>
+                                <th>进度</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                            {% for r in record_obj %}
+{#                              <tr>#}
+{#                                <td>http://lly-img.linlinyi.cn/wxapp/1.1.0/xxx.png</td>#}
+{#                                <td>URL刷新</td>#}
+{#                                <td>2019-05-15 00:00:00</td>#}
+{#                                <td>完成</td>#}
+{#                                <td>100%</td>#}
+{#                              </tr>#}
+                              <tr>
+                                <td>{{ r.fresh_content }}</td>
+                                <td>{{ r.fresh_type }}</td>
+                                <td>{{ r.fresh_time }}</td>
+                                <td>{{ r.stats }}</td>
+                                <td>100%</td>
+                              </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="static/lib/layui/layui.js"></script>
+    <script src="static/js/xadmin.js"></script>
+    <script src="static/js/cookie.js"></script>
+    <script src="static/js/jquery-2.1.1.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script>
+         /* 刷新CDN--开始 */
+        $('#cdn_fresh_submit').click(function () {
+            var fresh_type=$('#fresh_type option:selected').text();
+            var fresh_content=$('#fresh_content').val();
+            if ($.trim(fresh_content)==""){
+                alert("刷新内容不能为空，请重新输入！");
+            }
+            else{
+                $.ajax({
+                    url: "/cdn.html",
+                    type: 'POST',
+                    data: {'fresh_type':fresh_type, 'fresh_content': fresh_content},
+                    traditional:true,
+                    dataType:'JSON',
+                    success: function(data){
+                        if (data){
+                            alert(data);
+                            location.reload();
+                        }
+                    }});
+            }
+        });/* 刷新CDN--结束 */
+    </script>
+    </body>
+</html>

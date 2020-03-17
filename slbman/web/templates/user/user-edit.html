@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.1</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="static/css/font.css">
+    <link rel="stylesheet" href="static/css/xadmin.css">
+    <script src="static/js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="static/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="static/js/xadmin.js"></script>
+    <script type="text/javascript" src="static/js/cookie.js"></script>
+  </head>
+  
+  <body>
+    <div id="edit-body" class="x-body">
+          <div class="layui-form-item">
+              <label class="layui-form-label">
+                  姓名
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="edit-chinesename" value="{{ user_obj.chinese_name }}" class="layui-input" readonly>
+              </div>
+          </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">
+                  ID
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="edit-user-id" value="{{ user_obj.id }}" class="layui-input" readonly>
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label class="layui-form-label">
+                  用户名
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="edit-username" value="{{ user_obj.user_name }}" class="layui-input" readonly>
+              </div>
+          </div>
+
+          <div class="layui-form-item">
+              <label for="phone" class="layui-form-label">手机</label>
+              <div class="layui-input-inline">
+                  <input type="text" id="edit-phone" value="{{ user_obj.tel }}" class="layui-input">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="L_email" class="layui-form-label">邮箱</label>
+              <div class="layui-input-inline">
+                  <input type="text" id="edit-email" value="{{ user_obj.email }}" class="layui-input">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label">账号过期时间</label>
+              <div class="layui-input-inline">
+                  <input id="edit-overtime" class="layui-input" value="{{ user_obj.tag }}" >
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label class="layui-form-label">
+              </label>
+              <button id="edit_user_submit" class="layui-btn">
+                  提 交
+              </button>
+          </div>
+    </div>
+    <script>
+/* 添加新用户 */
+    $('#edit_user_submit').click(function () {
+        var user_id=$('#edit-user-id').val();
+        var phone=$('#edit-phone').val();
+        var email=$('#edit-email').val();
+        var overtime=$('#edit-overtime').val();
+        $.ajax({
+            url: "/userEdit",
+            type: 'POST',
+            data: {'user_id':user_id, 'phone': phone, 'email': email, 'overtime': overtime },
+            traditional:true,
+            dataType:'JSON',
+            success: function(data){
+                if (data){
+                    alert(data);
+                    location.reload();
+                }
+            }});
+    });
+/* 添加新用户 */
+    </script>
+  </body>
+
+</html>

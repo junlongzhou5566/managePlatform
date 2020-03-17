@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.1</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="static/css/font.css">
+    <link rel="stylesheet" href="static/css/xadmin.css">
+    <script src="static/js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="static/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="static/js/xadmin.js"></script>
+    <script type="text/javascript" src="static/js/cookie.js"></script>
+  </head>
+  
+  <body>
+    <div class="x-body">
+{#        <form class="layui-form">#}
+          <div class="layui-form-item">
+              <label for="username" class="layui-form-label">
+                  <span class="x-red">*</span>用户名
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" id="username" name="username" required="" lay-verify="required"
+                  autocomplete="off" class="layui-input">
+              </div>
+              <div class="layui-form-mid layui-word-aux">
+                  <span class="x-red">*</span>将会成为您唯一的登入名
+              </div>
+          </div>
+            <div class="layui-form-item">
+              <label class="layui-form-label">
+                  <span class="x-red">*</span>中文名称
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" required="" autocomplete="off" class="layui-input" id="family_name">
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="phone" class="layui-form-label">
+                  <span class="x-red">*</span>手机
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" name="phone" required="" lay-verify="phone" autocomplete="off" class="layui-input" id="phone" >
+              </div>
+          </div>
+          <div class="layui-form-item">
+              <label for="L_email" class="layui-form-label">
+                  <span class="x-red">*</span>邮箱
+              </label>
+              <div class="layui-input-inline">
+                  <input type="text" name="email" required="" lay-verify="email"
+                  autocomplete="off" class="layui-input" id="L_email">
+              </div>
+          </div>
+
+
+          <div class="layui-form-item">
+              <label for="L_repass" class="layui-form-label">
+              </label>
+              <button id="add_user_submit" class="layui-btn" lay-filter="add" lay-submit="" name="add_user">
+                  提 交
+              </button>
+          </div>
+{#      </form>#}
+    </div>
+    <script>
+        layui.use(['form','layer'], function(){
+            $ = layui.jquery;
+          var form = layui.form
+          ,layer = layui.layer;
+        
+          //自定义验证规则
+          form.verify({
+            required: function(value){
+              if(value.length < 5){
+                return '登录名至少得5个字符啊';
+              }
+            }
+            ,pass: [/(.+){6,12}$/, '密码必须6到12位']
+            ,repass: function(value){
+                if($('#L_pass').val()!=$('#L_repass').val()){
+                    return '两次密码不一致';
+                }
+            }
+          });
+
+          //监听提交
+          {#form.on('submit(add)', function(data){#}
+          {#  console.log(data);#}
+          {#  //发异步，把数据提交给php#}
+          {#  layer.alert("添加成功", {icon: 6},function () {#}
+          {#      // 获得frame索引#}
+          {#      var index = parent.layer.getFrameIndex(window.name);#}
+          {#      //关闭当前frame#}
+          {#      parent.layer.close(index);#}
+          {#      // 可以对父窗口进行刷新 #}
+          {#      x_admin_father_reload();#}
+          {#  });#}
+          {#  return false;#}
+          {# });#}
+        });
+    </script>
+    <script>var _hmt = _hmt || []; (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+    <script>
+         /* 添加新用户 */
+        $('#add_user_submit').click(function () {
+            var user_name=$('#username').val();
+            var family_name=$('#family_name').val();
+            var L_email=$('#L_email').val();
+            var phone=$('#phone').val();
+            {#var user_pwd=$('#L_pass').val();#}
+            {#var user_pwd_confirm=$('#L_repass').val();#}
+            if ($.trim(user_name)==""){
+                alert("用户名不能为空，请重新输入！");
+            }
+            else{
+                $.ajax({
+                    url: "/user_add.html",
+                    type: 'POST',
+                    data: {'user_name':user_name, 'family_name': family_name, 'email': L_email, 'phone': phone },
+                    traditional:true,
+                    dataType:'JSON',
+                    success: function(data){
+                        if (data){
+                            alert(data);
+                            location.reload();
+                        }
+                    }});
+            }
+        });/* 添加新用户 */
+        {# #}
+        {#function add_modify_user(obj){#}
+        {#      let operation = $(obj).attr('name');#}
+        {#      let username = $('#username').val();#}
+        {#      let family_name = $('#family_name').val();#}
+        {#      let given_name = $('#given_name').val();#}
+        {#      let tel = $('#phone').val();#}
+        {#      let email = $('#L_email').val();#}
+        {#      let working_place = $('input:radio[name="like1[read]"]:checked').val();#}
+        {#      let pwd = $('#L_pass').val();#}
+        {#      let repwd = $('#L_repass').val();#}
+        {#        $.ajax({#}
+        {#            url: "/user_add.html",#}
+        {#            type: 'POST',#}
+                    {#data: {'username':username, 'family_name':family_name, 'given_name':given_name, 'tel':tel,#}
+                    {#       'email':email, 'working_place':working_place, 'pwd':pwd, 'operation':operation},#}
+        {#            data: {'username':username, 'family_name':family_name, 'given_name':given_name, 'tel':tel,#}
+        {#                   'email':email, 'working_place':working_place, 'pwd':pwd, 'operation':operation},#}
+        {#            traditional:true,#}
+        {#            dataType:'JSON',#}
+        {#            success: function(data){#}
+        {#                layer.msg(data,{time:1000});#}
+        {#            }});#}
+        {#        }#}
+    </script>
+  </body>
+
+</html>

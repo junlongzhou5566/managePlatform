@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.1</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="static/css/font.css">
+      <link href="static/css/bootstrap-table.css" rel="stylesheet">
+      <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+      <link href="/static/css/nifty.min.css" rel="stylesheet">
+    <script src="static/js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="static/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="static/js/xadmin.js"></script>
+    <script type="text/javascript" src="static/js/cookie.js"></script>
+
+      <style>
+          a:hover {text-decoration:underline;}
+      </style>
+  </head>
+  
+  <body>
+    <div class="x-body">
+{#      <div >#}
+
+{#          <button class="layui-btn"  lay-submit="" lay-filter="sreach" style="float: right" onclick="search(this)"><i class="layui-icon">&#xe615;</i></button>#}
+{#          <input type="text" name="username"  placeholder="请输入用户名" autocomplete="off" class="layui-input" style="width: 250px; float: right">#}
+
+{#      </div>#}
+{#      <table id="tab" class="layui-table">#}
+{#        <thead>#}
+{#          <tr>#}
+{#            <th>用户名</th>#}
+{#            <th>中文名称</th>#}
+{#            <th>手机</th>#}
+{#            <th>邮箱</th>#}
+{#            <th>账号添加时间</th>#}
+{#            <th>状态</th>#}
+{#            <th>操作</th>#}
+{#        </thead>#}
+{#        <tbody>#}
+{#          {% for u in user_obj %}#}
+{#              <tr id="{{ u.user_name }}">#}
+{#                <td class="user_name">{{ u.user_name }}</td>#}
+{#                <td>{{ u.chinese_name }}</td>#}
+{#                <td>{{ u.tel }}</td>#}
+{#                <td>{{ u.email }}</td>#}
+{#                <td>{{ u.add_time }}</td>#}
+{#                <td class="td-status">#}
+{#                    {% if u.stats == '1' %}#}
+{#                        <span  style="color: #090">启用</span></td>#}
+{#                    {% else %}#}
+{#                        <span  style="color: #FF9900">禁用</span></td>#}
+{#                    {% endif %}#}
+{#                <td class="td-manage">#}
+{#                    {% if u.stats == '1' %}#}
+{#                        <a title="删除" onclick="member_del(this,'要删除的id')" href="javascript:;" style="color: #1E9FFF">#}
+{#                        禁用#}
+{#                      </a>#}
+{#                    {% else %}#}
+{##}
+{#                        <span style="color: #FF9900;">账号已禁用 </span>#}
+{#                        | <a title="删除" onclick="member_stop(this,'要删除的id')" href="javascript:;" style="color: #1E9FFF">启用</a>#}
+{#                    {% endif %}#}
+{#                </td>#}
+{#              </tr>#}
+{#          {% endfor %}#}
+{#        </tbody>#}
+{#      </table>#}
+    </div>
+
+
+
+    <div class="row" style="z-index: 9;position: relative">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div style="position: absolute;margin-top:34px;margin-left:21px;z-index: 10">
+                    <button class="btn btn-primary" onclick="x_admin_show('添加用户','/user_add.html')">添加新用户</button>&nbsp;&nbsp;&nbsp;
+                    <button class="btn btn-primary" onclick="modify_pwd()">修改密码</button>
+                </div>
+                <div class="panel-body a_joke">
+                    <table data-toggle="table" data-url="tables/data1.json" data-show-refresh="false"   data-search="true" data-select-item-name="toolbar1" data-pagination="true" data-sort-name="stat">  {# data-sort-order="desc" 是按倒序排列 #}
+                        <thead>
+                            <tr>
+                                <th data-field="stat" data-sortable="true">用户名</th>
+                                <th data-field="environment" data-sortable="true">中文名称</th>
+                                <th data-field="name"  data-sortable="true">手机</th>
+                                <th data-field="image" data-sortable="true">邮箱</th>
+                                <th data-field="ip_addr" data-sortable="true">账号过期时间</th>
+                                <th data-field="port" data-sortable="true">状态</th>
+                                <th data-field="loginIP" data-sortable="true">操作</th>
+                                <th data-field="edit" data-sortable="true">编辑</th>
+                            </tr>
+                        </thead>
+                        <tbody id="a_joke">
+                            {% for v in user_obj %}
+                                <tr class="tr">
+                                    <td data-field="id" data-sortable="true">{{ v.user_name }}</td>
+                                    <td data-field="environment" data-sortable="true">{{ v.chinese_name }}</td>
+                                    <td data-field="name"  data-sortable="true" name="phoneNumber">{{ v.tel }}</td>
+                                    <td data-field="image" data-sortable="true" name="emailInfo">{{ v.email }}</td>
+                                    <td data-field="ip" data-sortable="true" name="overTime">{{ v.tag }}</td>
+                                    <td class="td-status">
+                                        {% if v.stats == '1' %}
+                                            <span>
+                                                <span  style="color: #090">账号已启用</span> |
+                                                {% if v.vpn_stat == 1 %}
+                                                    <span>
+                                                        <a title="点击此处禁用vpn" name="{{ v.user_name }}" onclick="forbidden_vpn(this)" href="javascript:;" style="color: #1E9FFF">
+                                                            vpn已启用
+                                                        </a>
+                                                    </span>
+                                                {% else %}
+                                                    <span>
+                                                        <a title="点击此处启用vpn" name="{{ v.user_name }}" onclick="start_vpn(this)" href="javascript:;" style="color: #FF9900">
+                                                            vpn已禁用
+                                                        </a>
+                                                    </span>
+                                                {% endif %}
+                                            </span>
+
+                                        {% else %}
+                                            <span  style="color: #FF9900">账号已禁用</span>
+                                        {% endif %}
+                                     </td>
+                                    <td class="td-manage">
+                                        {% if v.stats == '1' %}
+                                            <a title="禁用" name="{{ v.user_name }}" onclick="member_del(this)" href="javascript:;" style="color: #1E9FFF">
+                                            禁用
+                                          </a> |
+                                            <a title="重置密码" name="{{ v.user_name }}" onclick="reset_pwd(this)" href="javascript:;" style="color: #1E9FFF">
+                                            重置密码
+                                          </a>
+                                        {% else %}
+
+                                            <span style="color: #FF9900;">账号已禁用 </span>
+                                            | <a title="启用" name="{{ v.user_name }}" tag="{{ v.chinese_name }}" onclick="member_start(this)" href="javascript:;" style="color: #1E9FFF">启用</a>
+                                        {% endif %}
+                                    </td>
+                                    <td class="td-manage">
+                                         <a onclick="x_admin_show('修改用户信息','/user_edit-{{ v.id }}.html')" href="javascript:;" style="color: #1E9FFF">修改用户信息</a>
+
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/bootstrap-table.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script>
+      layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        laydate.render({
+          elem: '#start'
+        });
+        laydate.render({
+          elem: '#end'
+        });
+      });
+
+       /*用户-停用*/
+      function member_stop(obj,id){
+          layer.confirm('确认要启用吗？',function(index){
+
+              if($(obj).attr('title')=='启用'){
+
+                //发异步把用户状态进行更改
+                $(obj).attr('title','停用');
+                $(obj).find('i').html('&#xe62f;');
+
+                $(obj).parents("tr").find(".td-status").find('span').addClass('layui-btn-disabled').html('已停用');
+                layer.msg('已停用!',{icon: 5,time:1000});
+
+              }else{
+                $(obj).attr('title','启用');
+                $(obj).find('i').html('&#xe601;');
+
+                $(obj).parents("tr").find(".td-status").find('span').removeClass('layui-btn-disabled').html('已启用');
+                layer.msg('已启用!',{icon: 6,time:1000});
+              }
+              
+          });
+      }
+
+
+      function member_start(obj){
+          var user_name = $(obj).attr('name');
+          layer.confirm('确认要启用吗？',function(index){
+              $.ajax({
+                    url: "/user_start",
+                    type: 'POST',
+                    data: {'user_name':user_name},
+                    traditional:true,
+                    dataType:'JSON',
+                    success: function(data){
+                        if (data){
+                            alert(data);
+                            location.reload();
+                         }
+                        {#$(obj).text('账号已禁用').attr('style', 'color: #FF9900').removeAttr('onclick');#}
+                        {#$(obj).parent().prev().children().text('禁用').attr('style', 'color: #FF9900');#}
+                        {#layer.msg('已禁用!',{icon:1,time:1000});#}
+                    }});
+
+          });
+      }
+
+      /*用户-禁用*/
+      function member_del(obj){
+          var user_name = $(obj).attr('name');
+          layer.confirm('确认要禁用吗？',function(index){
+              $.ajax({
+                    url: "/user_forbidden",
+                    type: 'POST',
+                    data: {'user_name':user_name},
+                    traditional:true,
+                    dataType:'JSON',
+                    success: function(data){
+                        if (data){
+                            alert(data);
+                            location.reload();
+                         }
+                        {#$(obj).text('账号已禁用').attr('style', 'color: #FF9900').removeAttr('onclick');#}
+                        {#$(obj).parent().prev().children().text('禁用').attr('style', 'color: #FF9900');#}
+                        {#layer.msg('已禁用!',{icon:1,time:1000});#}
+                    }});
+
+          });
+      }
+
+      /*重置密码*/
+      function reset_pwd(obj){
+          var user_name = $(obj).attr('name');
+          var user_chinese_name = $(obj).attr('tag');
+          layer.confirm('确认要执行该操作吗？',function(index){
+              $.ajax({
+                    url: "/reset_pwd",
+                    type: 'POST',
+                    data: {'user_name':user_name, 'user_chinese_name':user_chinese_name},
+                    traditional:true,
+                    dataType:'JSON',
+                    success: function(data){
+                        if (data){
+                            alert(data);
+                            location.reload();
+                         }
+                    }});
+          });
+      }
+
+
+      /*启用vpn*/
+      function start_vpn(obj){
+          var user_name = $(obj).attr('name');
+          layer.confirm('确认要执行该操作吗？',function(index){
+              $.ajax({
+                    url: "/start_vpn",
+                    type: 'POST',
+                    data: {'user_name':user_name},
+                    traditional:true,
+                    dataType:'JSON',
+                    success: function(data){
+                        if (data){
+                            alert(data);
+                            location.reload();
+                         }
+                    }});
+              });
+          }
+
+
+      /*禁用vpn*/
+      function forbidden_vpn(obj){
+          var user_name = $(obj).attr('name');
+          layer.confirm('确认要执行该操作吗？',function(index){
+              $.ajax({
+                    url: "/forbidden_vpn",
+                    type: 'POST',
+                    data: {'user_name':user_name},
+                    traditional:true,
+                    dataType:'JSON',
+                    success: function(data){
+                        if (data){
+                            alert(data);
+                            location.reload();
+                         }
+                    }});
+              });
+          }
+
+
+      function delAll (argument) {
+
+        var data = tableCheck.getData();
+  
+        layer.confirm('确认要删除吗？'+data,function(index){
+            //捉到所有被选中的，发异步进行删除
+            layer.msg('删除成功', {icon: 1});
+            $(".layui-form-checked").not('.header').parents('tr').remove();
+        });
+      }
+
+
+      /* 修改密码--开始 */
+       function modify_pwd() {
+            var tempwindow=window.open();
+            var des_url = 'http://pwc.linlinyi.cn';
+            tempwindow.location=des_url;
+        }
+        /* 修改密码--结束 */
+
+      /* 搜索--开始 */
+      function search (obj) {
+          var user_obj = $(obj).next().val();
+          $('#tab tr').each(function () {
+              if ($(this).children().hasClass('user_name')){
+                  var id_obj = $(this).attr('id');
+                  console.log(id_obj);
+                  if ( id_obj.indexOf(user_obj) != -1){
+                      $(this).addClass('hide')
+                  }
+              }
+          })
+      }
+      /* 搜索--结束 */
+
+    </script>
+    <script>var _hmt = _hmt || []; (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  </body>
+
+</html>

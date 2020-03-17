@@ -1,0 +1,17 @@
+Metadata-Version: 1.0
+Name: aliyun-ecs
+Version: 0.0.5
+Summary: A set of simple tools for aliyun ecs.
+Home-page: https://github.com/teachmyself/aliyun/ecs
+Author: teachmyself
+Author-email: teachmyself@126.com
+License: MIT LICENSE
+Description: aliyun-ecs
+        
+        Copyright (c) 2017 teachmyself
+        
+        This is set of tools for aliyun ecs.
+        
+        
+Keywords: aliyun,ecs,metadata,vpc,teachmyself
+Platform: UNKNOWN

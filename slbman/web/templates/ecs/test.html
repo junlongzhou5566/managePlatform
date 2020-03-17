@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自助创建ECS</title>
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/css/nifty.min.css" rel="stylesheet">
+    <link href="static/css/demo/nifty-demo.min.css" rel="stylesheet">
+    <style>
+        .font-bold {
+            font-weight: bold;
+        }
+        .hover-shadow:hover {
+            box-shadow: 0 2px 2px rgba(25, 25, 25, .25);
+            -webkit-transform: translateY(-1px);
+            -moz-transform: translateY(-1px);
+            transform: translateY(-1px)
+        }
+    </style>
+</head>
+
+<body>
+
+{#	<div id="content-container">#}
+
+{#        <div id="page-content">#}
+
+            <div class="panel">
+                <div class="eq-height clearfix">
+
+                    <div class="col-md-12 eq-box-md eq-no-panel">
+
+                        <div id="demo-main-wz">
+
+                            <!--nav-->
+                            <ul class="row wz-step wz-icon-bw wz-nav-off mar-top">
+                                <li class="col-xs-3">
+                                    <a data-toggle="tab" href="#demo-main-tab1">
+                                        <p >基础配置</p>
+                                    </a>
+                                </li>
+                                <li class="col-xs-3">
+                                    <a data-toggle="tab" href="#demo-main-tab2">
+                                        <p >网络和安全组</p>
+                                    </a>
+                                </li>
+                                <li class="col-xs-3">
+                                    <a data-toggle="tab" href="#demo-main-tab3">
+                                        <p >系统配置</p>
+                                    </a>
+                                </li>
+                                <li class="col-xs-3">
+                                    <a data-toggle="tab" href="#">
+                                        <p >分组设置</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="progress progress-xs">
+                                <div class="progress-bar progress-bar-primary"></div>
+                            </div>
+
+                            <form class="form-horizontal">
+                                <div class="panel-body">
+                                    <div class="tab-content">
+                                        <div id="demo-main-tab1" class="tab-pane">
+                                            <div class="jumbotron hover-shadow">
+                                                <span class="font-bold" style="font-size: small;">计费方式&nbsp;&nbsp;&nbsp;</span>
+                                                <button type="button" class="btn btn-primary">包年包月</button>
+                                                <button type="button" class="btn btn-default">按量付费</button>
+                                            </div>
+                                            <div class="jumbotron hover-shadow">
+                                                <span class="font-bold" style="font-size: small;">地域&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                <button type="button" class="btn btn-primary">华东1(杭州)</button>
+                                                <button type="button" class="btn btn-default">可用区G</button>
+                                                <button type="button" class="btn btn-default">可用区F</button>
+                                            </div>
+                                            <div class="jumbotron hover-shadow" >
+                                                <span class="font-bold" style="font-size: small;">实例配置&nbsp;&nbsp;</span>
+
+                                                <button type="button" class="btn btn-primary">1vCPU 2GiB</button>
+                                                <button type="button" class="btn btn-default">2vCPU 4GiB</button>
+                                                <button type="button" class="btn btn-default">4vCPU 8GiB</button>
+                                                <button type="button" class="btn btn-default">8vCPU 16GiB</button>
+                                                <div >
+                                                    <table class="table table-striped" style="margin-top: 20px" >
+                                                        <thead>
+                                                            <tr>
+                                                                <th>规格组</th>
+                                                                <th>vCPU</th>
+                                                                <th>内存</th>
+                                                                <th>内网带宽</th>
+                                                                <th>内网收发包</th>
+                                                                <th>规格参考价</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <td>计算网络增强型</td>
+                                                                <td>2vCPU</td>
+                                                                <td>4GiB</td>
+                                                                <td>1 Gbps</td>
+                                                                <td>30万 PPS</td>
+                                                                <td><span style="color: orange">197.0</span> 元/月</td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <div style="height: 30px">
+                                                        <label class="col-lg-1 control-label font-bold">购买数量(台)：</label>
+                                                        <div class="col-lg-1">
+                                                            <input type="text" placeholder="1" name="ecs_count" class="form-control">
+                                                        </div>
+                                                        <label class="control-label font-bold">台</label>
+                                                    </div>
+
+{#                                                            <lable style="margin-top: 5px"><span class="font-bold" style="font-size: larger;">台</span></lable>#}
+
+                                                 </div>
+                                            </div>
+
+
+
+                                            <hr>
+                                        </div>
+                                        <div id="demo-main-tab2" class="tab-pane fade">
+                                            <div class="form-group">
+                                                <label class="col-lg-3 control-label">First name</label>
+                                                <div class="col-lg-7">
+                                                    <input type="text" placeholder="First name" name="firstName" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-3 control-label">Last name</label>
+                                                <div class="col-lg-7">
+                                                    <input type="text" placeholder="Last name" name="lastName" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-3 control-label">Company</label>
+                                                <div class="col-lg-7">
+                                                    <input type="text" placeholder="Company" name="company" class="form-control">
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="form-group">
+                                                <label class="col-lg-3 control-label">Member Type</label>
+                                                <div class="col-lg-7">
+                                                    <div class="radio">
+                                                        <label class="form-radio form-icon">
+                                                            <input type="radio" value="free" name="memberType"> Free
+                                                        </label>
+
+                                                        <label class="form-radio form-icon">
+                                                            <input type="radio" value="personal" name="memberType"> Personal
+                                                        </label>
+
+                                                        <label class="form-radio form-icon">
+                                                            <input type="radio" value="bussines" name="memberType"> Bussiness
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="demo-main-tab3" class="tab-pane">
+                                            <div class="form-group">
+                                                <label class="col-lg-3 control-label">Phone Number</label>
+                                                <div class="col-lg-7">
+                                                    <input type="text" placeholder="Phone number" name="phoneNumber" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-3 control-label">Address</label>
+                                                <div class="col-lg-7">
+                                                    <input type="text" placeholder="Address" name="address" class="form-control">
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="form-group">
+                                                <label class="col-lg-3 control-label">City</label>
+                                                <div class="col-lg-7">
+                                                    <input type="text" placeholder="City" name="city" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-3 control-label">Poscode</label>
+                                                <div class="col-lg-7">
+                                                    <input type="text" placeholder="Poscode" name="poscode" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div id="demo-main-tab3" class="tab-pane">
+                                            <div class="form-group">
+                                                <label class="col-lg-3 control-label">Phone Number</label>
+                                                <div class="col-lg-7">
+                                                    <input type="text" placeholder="Phone number" name="phoneNumber" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-3 control-label">Address</label>
+                                                <div class="col-lg-7">
+                                                    <input type="text" placeholder="Address" name="address" class="form-control">
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="form-group">
+                                                <label class="col-lg-3 control-label">City</label>
+                                                <div class="col-lg-7">
+                                                    <input type="text" placeholder="City" name="city" class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-lg-3 control-label">Poscode</label>
+                                                <div class="col-lg-7">
+                                                    <input type="text" placeholder="Poscode" name="poscode" class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="pull-right pad-all">
+                                    <button type="button" class="previous btn btn-primary">上一步</button>
+                                    <button type="button" class="next btn btn-primary">下一步</button>
+                                    <button type="button" class="finish btn btn-success" disabled>完&nbsp;&nbsp;&nbsp;成</button>
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+{#        </div>#}
+{#    </div>#}
+	<script src="static/js/jquery-2.1.1.min.js"></script>
+	<script src="static/js/bootstrap.min.js"></script>
+	<script src="static/js/nifty.min.js"></script>
+	<script src="static/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+	<script src="static/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+	<script src="static/js/demo/nifty-demo.min.js"></script>
+	<script src="static/js/demo/form-wizard.js"></script>
+</body>
+</html>
+

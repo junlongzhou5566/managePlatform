@@ -1,0 +1,2 @@
+from aliyun.api.rest.ocm.OcmSingleSendMailRequest import OcmSingleSendMailRequest
+from aliyun.api.rest.ocm.OcmSenderStatisticsByTagNameAndBatchIDRequest import OcmSenderStatisticsByTagNameAndBatchIDRequest

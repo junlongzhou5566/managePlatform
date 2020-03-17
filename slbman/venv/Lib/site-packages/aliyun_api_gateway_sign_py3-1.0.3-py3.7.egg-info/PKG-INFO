@@ -1,0 +1,11 @@
+Metadata-Version: 1.0
+Name: aliyun-api-gateway-sign-py3
+Version: 1.0.3
+Summary: aliyun api网关调用python3
+Home-page: https://github.com/jnchenfeng/aliyun_api_gateway_sign_py3
+Author: ChenFeng
+Author-email: jnchenfeng123@163.com
+License: MIT Licence
+Description: aliyun api gateway for python3
+Keywords: pip,aliyun,gateway,aliyun-gateway
+Platform: any

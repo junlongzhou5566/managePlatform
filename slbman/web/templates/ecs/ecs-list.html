@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html class="x-admin-sm">
+  
+  <head>
+    <meta charset="UTF-8">
+    <title>欢迎页面-X-admin2.1</title>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="stylesheet" href="static/css/font.css">
+    <link rel="stylesheet" href="static/css/xadmin.css">
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/css/nifty.min.css" rel="stylesheet">
+    <link href="static/css/demo/nifty-demo.min.css" rel="stylesheet">
+    <script src="static/js/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="static/lib/layui/layui.js" charset="utf-8"></script>
+    <script type="text/javascript" src="static/js/xadmin.js"></script>
+    <script type="text/javascript" src="static/js/cookie.js"></script>
+	<script src="static/js/bootstrap.min.js"></script>
+	<script src="static/js/nifty.min.js"></script>
+	<script src="static/plugins/bootstrap-select/bootstrap-select.min.js"></script>
+	<script src="static/plugins/bootstrap-wizard/jquery.bootstrap.wizard.min.js"></script>
+	<script src="static/js/demo/nifty-demo.min.js"></script>
+	<script src="static/js/demo/form-wizard.js"></script>
+      <style>
+          .font-bold {
+            font-weight: bold;
+        }
+        .hover-shadow:hover {
+            box-shadow: 0 2px 2px rgba(25, 25, 25, .25);
+            -webkit-transform: translateY(-1px);
+            -moz-transform: translateY(-1px);
+            transform: translateY(-1px)
+        }
+      </style>
+  </head>
+  <body>
+    <div class="panel">
+        <div class="eq-height clearfix">
+            <div class="col-md-12 eq-box-md eq-no-panel">
+                <div id="demo-main-wz">
+                    <!--nav-->
+                    <ul class="row wz-step wz-icon-bw wz-nav-off mar-top">
+                        <li class="col-xs-3">
+                            <a data-toggle="tab" href="#demo-main-tab1">
+                                <p >基础配置</p>
+                            </a>
+                        </li>
+                        <li class="col-xs-3">
+                            <a data-toggle="tab" href="#demo-main-tab2">
+                                <p >网络和安全组</p>
+                            </a>
+                        </li>
+                        <li class="col-xs-3">
+                            <a data-toggle="tab" href="#demo-main-tab3">
+                                <p >系统配置</p>
+                            </a>
+                        </li>
+                        <li class="col-xs-3">
+                            <a data-toggle="tab" href="#demo-main-tab4">
+                                <p >确认订单</p>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="progress progress-xs">
+                        <div class="progress-bar progress-bar-primary"></div>
+                    </div>
+
+                    <form class="form-horizontal">
+                        <div class="panel-body">
+                            <div class="tab-content">
+                                <div id="demo-main-tab1" class="tab-pane">
+                                    <div class="jumbotron hover-shadow">
+                                        <span class="font-bold" style="font-size: small;">计费方式&nbsp;&nbsp;&nbsp;</span>
+                                        <button type="button" class="btn btn-primary" onclick="button_change(this)">包年包月</button>
+                                        <button type="button" class="btn btn-default" onclick="button_change(this)">按量付费</button>
+                                    </div>
+                                    <div class="jumbotron hover-shadow">
+                                        <span class="font-bold" style="font-size: small;">地域&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <button type="button" class="btn btn-info">华东1(杭州)</button>
+                                        <button type="button" class="btn btn-default" onclick="button_change(this)" name="area">可用区G</button>
+                                        <button type="button" class="btn btn-default" onclick="button_change(this)" name="area">可用区F</button>
+                                    </div>
+                                    <div class="jumbotron hover-shadow" >
+                                        <span class="font-bold" style="font-size: small;">实例配置&nbsp;&nbsp;</span>
+
+                                        <button type="button" class="btn btn-primary" onclick="button_change(this)">1vCPU 2GiB</button>
+                                        <button type="button" class="btn btn-default" onclick="button_change(this)">2vCPU 4GiB</button>
+                                        <button type="button" class="btn btn-default" onclick="button_change(this)">4vCPU 8GiB</button>
+                                        <button type="button" class="btn btn-default" onclick="button_change(this)">8vCPU 16GiB</button>
+                                        <div >
+                                            <table class="table table-striped" style="margin-top: 20px" >
+                                                <thead>
+                                                    <tr>
+                                                        <th>规格组</th>
+                                                        <th>vCPU</th>
+                                                        <th>内存</th>
+                                                        <th>内网带宽</th>
+                                                        <th>内网收发包</th>
+                                                        <th>规格参考价</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td>计算网络增强型</td>
+                                                        <td>2vCPU</td>
+                                                        <td>4GiB</td>
+                                                        <td>1 Gbps</td>
+                                                        <td>30万 PPS</td>
+                                                        <td><span style="color: orange">197.0</span> 元/月</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            <div style="height: 30px">
+                                                <label class="col-lg-1 control-label font-bold">购买数量(台)：</label>
+                                                <div class="col-lg-1">
+                                                    <input type="text"  name="ecs_count" class="form-control" value="1">
+                                                </div>
+                                                <label class="control-label font-bold">台</label>
+                                            </div>
+                                         </div>
+                                    </div>
+
+                                    <div class="jumbotron hover-shadow">
+                                        <span class="font-bold" style="font-size: small;">存储&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <button type="button" class="btn btn-primary" onclick="button_change(this)">100 GiB</button>
+                                        <button type="button" class="btn btn-default" onclick="button_change(this)">200 GiB</button>
+                                        <button type="button" class="btn btn-default" onclick="button_change(this)">500 GiB</button>
+                                    </div>
+
+                                    <hr>
+                                </div>
+                                <div id="demo-main-tab2" class="tab-pane fade">
+                                    <div class="jumbotron hover-shadow">
+                                        <span class="font-bold" style="font-size: small;">网络&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                        <button type="button" class="btn btn-primary">杭州-生产</button>&nbsp;&nbsp;&nbsp;
+                                        <div class="layui-input-inline">
+                                            <select name="contrller" style="height: 33px">
+                                              <option>请选择交换机</option>
+                                              <option>前端SW-2</option>
+                                              <option>后端SW-2</option>
+
+                                            </select>
+
+                                          </div><span style="color: orange;">&nbsp;&nbsp;&nbsp;&nbsp;数据组选择 后端SW-2 即可</span>
+                                    </div>
+                                    <div class="jumbotron hover-shadow">
+                                        <span class="font-bold" style="font-size: small;">安全组&nbsp;</span>
+                                        <button type="button" class="btn btn-primary" name="sg-bp1823ir6e293doyuvo8">LLY-Web</button>
+                                    </div>
+
+                                    <hr>
+                                </div>
+                                <div id="demo-main-tab3" class="tab-pane">
+                                    <div class="jumbotron hover-shadow">
+                                        <span class="font-bold" style="font-size: small;">预留设置，请点击下一步</span>
+                                    </div>
+                                </div>
+
+                                <div id="demo-main-tab4" class="tab-pane">
+                                    <div class="jumbotron hover-shadow">
+                                        <div style="width: 10%;float: left"><p style="font-size: small">所选配置</p></div>
+                                        <div style="width: 30%;float: left">
+                                            <span><p style="font-size: large">基础配置</p></span>
+                                            <br>
+                                            <div class="group" style="margin:5px 0;">
+                                                计费方式： <span class="font-bold">包年包月</span>
+                                            </div>
+                                            <div class="group" style="margin:5px 0;">
+                                                地域： <span class="font-bold">华东 1 可用区 G</span>
+                                            </div>
+                                            <div class="group" style="margin:5px 0;">
+                                                实例： <span class="font-bold">计算网络增强型 sn1ne / ecs.sn1ne.large(2vCPU 4GiB)</span>
+                                            </div>
+                                            <div class="group" style="margin:5px 0;">
+                                                购买数量： <span class="font-bold">1 台</span>
+                                            </div>
+                                            <div class="group" style="margin:5px 0;">
+                                                镜像： <span class="font-bold">终极镜像</span>
+                                            </div>
+                                            <div class="group" style="margin:5px 0;">
+                                                系统盘： <span class="font-bold">高效云盘 100GiB</span>
+                                            </div>
+                                            <br>
+                                        </div>
+                                        <div style="width: 30%;float: left">
+                                            <span><p style="font-size: large">网络和安全组</p></span>
+                                            <br>
+                                            <div class="group" style="margin:5px 0;">
+                                                网络： <span class="font-bold">专有网络</span>
+                                            </div>
+                                            <div class="group" style="margin:5px 0;">
+                                                VPC： <span class="font-bold">杭州-生产/ vpc-bp1htm2ryjhk0exz73wet</span>
+                                            </div>
+                                            <div class="group" style="margin:5px 0;">
+                                                交换机： <span class="font-bold">后端SW-2/ vsw-bp1vw286260qioc3pysb2/ 10.126.11.0/24</span>
+                                            </div>
+                                            <div class="group" style="margin:5px 0;">
+                                                公网带宽： <span class="font-bold">不分配</span>
+                                            </div>
+                                            <div class="group" style="margin:5px 0;">
+                                                安全组： <span class="font-bold">LLY-Web / sg-bp1823ir6e293doyuvo8</span>
+                                            </div>
+                                            <br>
+                                        </div>
+                                        <div style="width: 30%;float: left">
+                                            <span><p style="font-size: large">系统配置</p></span>
+                                            <br>
+                                            <div class="group" style="margin:5px 0;">
+                                                登录凭证： <span class="font-bold">使用镜像预设密码</span>
+                                            </div>
+                                            <br>
+                                        </div>
+
+                                    <hr>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pull-right pad-all">
+                            <span>购买时长1个月，配置费用: <span class="font-bold" style="color: orange;font-size: large">￥ 256.25 </span></span>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <button type="button" class="previous btn btn-primary">上一步</button>
+                            <button type="button" class="next btn btn-primary" onclick="next_step(this)">下一步</button>
+                            <button type="button" class="finish btn btn-success" disabled>完&nbsp;&nbsp;&nbsp;成</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <script>
+      layui.use('laydate', function(){
+        var laydate = layui.laydate;
+        
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#start' //指定元素
+        });
+
+        //执行一个laydate实例
+        laydate.render({
+          elem: '#end' //指定元素
+        });
+      });
+
+       /*切换按钮*/
+      function next_step(obj){
+          let btn_obj = $(obj).parents().find('button');
+          for (let b in btn_obj){
+
+              if (btn_obj.hasOwnProperty(b)){
+                  console.log(btn_obj[b]);
+                  {#if (btn_obj[b].hasClass('name')){#}
+                  {#    console.log(b['name'])#}
+                  {# }#}
+              }
+          }
+      }
+
+         /*切换按钮*/
+      function button_change(obj){
+
+          if($(obj).hasClass('btn-primary')){
+
+          }else{
+              $(obj).parent().find('button').removeClass('btn-primary');
+              $(obj).parent().find('button').addClass('btn-default');
+              $(obj).removeClass('btn-default');
+              $(obj).addClass('btn-primary');
+          }
+      }
+
+
+    </script>
+    <script>var _hmt = _hmt || []; (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?b393d153aeb26b46e9431fabaf0f6190";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+      })();
+    </script>
+  </body>
+
+</html>

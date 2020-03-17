@@ -1,0 +1,105 @@
+<div class="left-nav">
+      <div id="side-nav">
+        <ul id="nav">
+            {% if user_obj.group == '1' and user_obj.permission_level == '1' %}  <!-- 运维组管理员权限显示开始 -->
+                <li>
+                    <a href="javascript:;">
+                        <i class="iconfont">&#xe723;</i>
+                        <cite>负载管理</cite>
+                        <i class="iconfont nav_right">&#xe697;</i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="/private">
+                                <i class="iconfont">&#xe6a7;</i>
+                                <cite>内网负载</cite>
+                            </a>
+                        </li >
+                    </ul>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="/public">
+                                <i class="iconfont">&#xe6a7;</i>
+                                <cite>外网负载</cite>
+                            </a>
+                        </li >
+                    </ul>
+                </li>
+                <li>
+                    <a href="/server">
+                        <i class="iconfont">&#xe71b;</i>
+                        <cite>ECS实例</cite>
+                    </a>
+                </li>
+                <li>
+                    <a href="/cdn">
+                        <i class="iconfont">&#xe71b;</i>
+                        <cite>CDN刷新</cite>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="javascript:;">
+                        <i class="iconfont">&#xe726;</i>
+                        <cite>域控用户管理</cite>
+                        <i class="iconfont nav_right">&#xe697;</i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="/user">
+                                <i class="iconfont">&#xe6a7;</i>
+                                <cite>用户列表</cite>
+                            </a>
+                        </li >
+                    </ul>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="iconfont">&#xe726;</i>
+                        <cite>账号管理</cite>
+                    </a>
+                </li>  <!-- 运维组管理员权限显示结束 -->
+            {% elif  user_obj.group == '1' and user_obj.permission_level == '2' %}  <!-- 运维组普通用户权限显示开始 -->
+               <li>
+                    <a href="javascript:;">
+                        <i class="iconfont">&#xe726;</i>
+                        <cite>域控用户管理</cite>
+                        <i class="iconfont nav_right">&#xe697;</i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="/user">
+                                <i class="iconfont">&#xe6a7;</i>
+                                <cite>用户列表</cite>
+                            </a>
+                        </li >
+                    </ul>
+                </li>  <!-- 运维组普通用户权限显示结束 -->
+            {% elif user_obj.group == '2' or user_obj.group == '3' and user_obj.permission_level == '1' %}  <!-- 研发管理员权限显示开始 -->
+                <li>
+                    <a href="javascript:;">
+                        <i class="iconfont">&#xe723;</i>
+                        <cite>负载管理</cite>
+                        <i class="iconfont nav_right">&#xe697;</i>
+                    </a>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="/">
+                                <i class="iconfont">&#xe6a7;</i>
+                                <cite>内网负载</cite>
+                            </a>
+                        </li >
+                    </ul>
+                    <ul class="sub-menu">
+                        <li>
+                            <a href="/public">
+                                <i class="iconfont">&#xe6a7;</i>
+                                <cite>外网负载</cite>
+                            </a>
+                        </li >
+                    </ul>
+                </li><!-- 研发管理员权限显示结束 -->
+            {% endif %}
+        </ul>
+      </div>
+    </div>
